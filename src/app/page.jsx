@@ -259,9 +259,9 @@ export default function Home() {
               className="bg-blue-100 p-8 rounded-lg shadow-lg max-w-2xl mx-auto"
             >
               <p className="text-lg text-blue-800 italic mb-4">
-                "Power Forecast has revolutionized how I manage my home's energy
+                &quot;Power Forecast has revolutionized how I manage my home's energy
                 consumption. I've saved over 30% on my electricity bills since I
-                started using it!"
+                started using it!&quot;
               </p>
               <p className="text-blue-600 font-semibold">
                 - Sairaj Mane, Homeowner

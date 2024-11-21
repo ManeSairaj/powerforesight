@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
-export default async function LandingPage({ user }) {
+export default function LandingPage({ user }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const controls = useAnimation();
@@ -30,9 +30,9 @@ export default async function LandingPage({ user }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (user) router.push(`/${user.id}`);
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) router.push(`/${user.id}`);
+  // }, [user]);
 
   useEffect(() => {
     if (isVisible) {

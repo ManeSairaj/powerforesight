@@ -10,13 +10,13 @@ const Page = () => {
   const params = useParams();
   console.log(params);
 
-  useEffect(() => {
-    if (params?.userId) {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (params?.userId) {
+  //     setIsAdmin(true);
+  //   } else {
+  //     setIsAdmin(false);
+  //   }
+  // }, []);
 
   return (
     <>

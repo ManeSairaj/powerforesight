@@ -60,7 +60,7 @@ export function Profile() {
 
         <LabelInputContainer className="mb-1">
           <Label className="text-xl font-semibold opacity-90">
-            Emergency Contact's
+            Emergency Contact&apos;s
           </Label>
         </LabelInputContainer>
         <div className="bg-gradient-to-r from-neutral-300 via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
