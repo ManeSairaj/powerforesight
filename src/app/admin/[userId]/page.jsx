@@ -5,7 +5,7 @@ import Topbar from "@/components/Navbar";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const params = useParams();
   console.log(params);
