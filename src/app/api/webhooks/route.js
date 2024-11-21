@@ -34,6 +34,8 @@ export async function POST(req) {
   const payload = await req.json();
   const body = JSON.stringify(payload);
 
+  let evt;
+
   // Verify payload with headers
   try {
     evt = wh.verify(body, {
@@ -56,9 +58,16 @@ export async function POST(req) {
   console.log("Webhook payload:", body);
 
   try {
-    const body = await req.json();
+    console.log("Headers:", req.headers);
+    console.log("Method:", req.method);
+    // const textBody = await req.text(); // Use `.text()` to see the raw body
+    // console.log("Raw Body:", textBody);
+    // const body = JSON.parse(req.body); // Manually parse to catch issues
+    console.log("Parsed Body:", body);
 
+    let parsedbody = JSON.parse(body);
     // if (body.object === "user") {
+    console.log("body ", parsedbody);
     const {
       id,
       first_name,
@@ -66,9 +75,8 @@ export async function POST(req) {
       email_addresses,
       phone_numbers,
       public_metadata,
-    } = body;
+    } = parsedbody.data;
 
-    console.log(body);
     console.log({
       id,
       first_name,
