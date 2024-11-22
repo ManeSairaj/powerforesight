@@ -1,8 +1,8 @@
 import { Profile } from "@/components/Form/Profile";
 import React from "react";
 
-const Page = () => {
+const page = () => {
   return <Profile />;
 };
 
-export default Page;
+export default page;

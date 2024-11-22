@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ref, set, get } from "firebase/database";
 import { motion, useAnimation } from "framer-motion";
 import {
   ArrowRight,

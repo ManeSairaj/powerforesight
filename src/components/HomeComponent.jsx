@@ -19,45 +19,46 @@ const HomeComponent = () => {
         </div> */}
 
         <DynamicInfoCard
-          numericalValue={1234}
+          numericalValue={560}
           textValue="Current Bill Number"
           label="Bill Information"
           icon="receipt"
+          unit="Rs"
         />
         <DynamicInfoCard
-          numericalValue={26}
+          numericalValue={5}
           textValue="Price per Kilowatt Hour"
           label="Energy Cost"
           icon="zap"
-          unit="$"
+          unit="Rs"
         />
-        <DynamicInfoCard
+        {/* <DynamicInfoCard
           numericalValue={26}
           textValue="Price per Kilowatt Hour"
           label="Energy Cost"
           icon="dollar"
           unit="$"
-        />
+        /> */}
         <DynamicInfoCard
           numericalValue={26}
-          textValue="Price per Kilowatt Hour"
-          label="Energy Cost"
-          icon="zap"
-          unit="$"
+          textValue="kmph"
+          label="Wind speed"
+          icon="wind"
+          unit="kph"
         />
         <DynamicInfoCard
-          numericalValue={26}
-          textValue="Price per Kilowatt Hour"
+          numericalValue={47}
+          textValue="Water density"
           label="Humidity"
           icon="humidity"
-          unit="ml"
+          unit="%"
         />
         <DynamicInfoCard
-          numericalValue={26}
-          textValue="Price per Kilowatt Hour"
+          numericalValue={25.4}
+          textValue="Degree cen"
           label="Temperature"
           icon="temp"
-          unit="c"
+          unit="'c"
         />
       </div>
     </>

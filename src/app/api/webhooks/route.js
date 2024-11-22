@@ -94,7 +94,6 @@ export async function POST(req) {
       address: public_metadata?.address || null,
     };
 
-    // Save user data to the Realtime Database
     await set(ref(db, "users/" + id), userData);
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });

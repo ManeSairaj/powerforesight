@@ -38,19 +38,6 @@ export default function Topbar() {
     }
   };
 
-  const handleUserCreation = () => {
-    const newUser = {
-      id: "user-123",
-      first_name: "John",
-      last_name: "Doe",
-      email_addresses: [{ email_address: "john.doe@example.com" }],
-      phone_numbers: [{ phone_number: "+1234567890" }],
-      public_metadata: { address: "123 Main St, City, Country" },
-    };
-
-    postDataToWebhook(newUser);
-  };
-
   return (
     <Navbar className="w-screen p-5 h-20 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-15">
       <NavbarBrand>
@@ -75,9 +62,6 @@ export default function Topbar() {
           </Link>
           <div>
             <ModeToggle />
-            <button onClick={handleUserCreation} className="red">
-              Create User
-            </button>
           </div>
         </NavbarItem>
       </NavbarContent>

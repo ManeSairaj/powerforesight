@@ -10,6 +10,7 @@ import {
   Icon,
   Thermometer,
   GlassWater,
+  Wind,
 } from "lucide-react";
 import NumberTicker from "./ui/number-ticker";
 
@@ -35,6 +36,7 @@ const iconMap = {
   dollar: DollarSign,
   temp: Thermometer,
   humidity: GlassWater,
+  wind: Wind,
 };
 
 // export default function DynamicInfoCard({ numericalValue, textValue, label, icon, unit = '' }: InfoCardProps) {

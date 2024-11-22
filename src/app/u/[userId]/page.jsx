@@ -2,7 +2,7 @@
 import Topbar from "@/components/Navbar";
 import HomeComponent from "@/components/HomeComponent";
 
-const Page = () => {
+const page = () => {
   return (
     <>
       <div className="h-fit w-screen flex flex-col flex-wrap">
