@@ -20,6 +20,7 @@ import {
 } from "chart.js";
 import { Button } from "@nextui-org/react";
 import loadingStates from "@/Data/loadingStates";
+import { DatePickerWithRange } from "../ui/DatePickerWithRange";
 
 ChartJS.register(
   CategoryScale,
@@ -179,7 +180,7 @@ const HistoryChartComponent = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <div className="flex flex-wrap justify-between p-4">
+      <div className="flex flex-wrap justify-evenly p-4">
         <div
           style={{ marginBottom: "20px" }}
           className="flex justify-content items-center gap-5 px-4 py-3 w-fit bg-gray-100 dark:bg-slate-800 rounded-full"
@@ -217,28 +218,30 @@ const HistoryChartComponent = () => {
           </button>
         </div>
         <div className="flex gap-0 h-fit items-center justify-center">
-          <div className="flex flex-wrap gap-0">
-            <DatePicker
+          <div className="flex flex-wrap gap-0 w-full ">
+            {/* <DatePicker
               selected={fromDate}
               onChange={(date) => setFromDate(date)}
               dateFormat="yyyy-MM-dd"
-              className="text-black outline-none border-none px-4 py-3 bg-gray-300 border-b-2 border-gray-500"
+              className="text-black dark:text-white bg-transparent px-4 py-3 border-2 border-b-0 border-gray-300 text-center"
             />
             {selectedCategory !== "Daily Consumption" && (
               <DatePicker
                 selected={toDate}
                 onChange={(date) => setToDate(date)}
                 dateFormat="yyyy-MM-dd"
-                className="text-black outline-none border-none px-4 py-3 bg-gray-300"
+                className="text-black dark:text-white bg-transparent px-4 py-3 border-2 border-gray-300 text-center"
               />
-            )}
+            )} */}
+            <DatePickerWithRange />
           </div>
-          <Button
+          {/* <Button
             onClick={handleFilterData}
-            className="bg-blue-500 h-[100%] w-full rounded-r-xl px-4 py-3 text-white"
+            className="bg-blue-500 rounded-r-xl px-4 py-3 text-white"
           >
             Filter
-          </Button>
+          </Button> */}
+
         </div>
       </div>
       <div className="h-1/3 w-1/2 mx-auto bg-gray-300 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 overflow-hidden relative">

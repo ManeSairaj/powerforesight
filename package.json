@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "sdev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,6 +15,7 @@
     "@nextui-org/react": "^2.4.8",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.3",
     "@radix-ui/react-slot": "^1.1.0",
     "@react-three/drei": "^9.117.0",
     "@react-three/fiber": "^8.17.10",
@@ -22,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0.1",
     "framer-motion": "^11.11.17",
@@ -32,6 +35,7 @@
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-datepicker": "^7.5.0",
+    "react-day-picker": "^9.4.3",
     "react-dom": "^18.3.1",
     "svix": "^1.41.0",
     "tailwind-merge": "^2.5.4",
