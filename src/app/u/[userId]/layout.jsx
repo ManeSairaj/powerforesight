@@ -1,5 +1,5 @@
 import Meteors from "@/components/ui/meteors";
-import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+// import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 export default function Layout({ children }) {
   return (

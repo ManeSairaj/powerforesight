@@ -21,6 +21,7 @@ import {
 import { Button } from "@nextui-org/react";
 import loadingStates from "@/Data/loadingStates";
 import { DatePickerWithRange } from "../ui/DatePickerWithRange";
+import { addDays } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -33,15 +34,18 @@ ChartJS.register(
 );
 
 const HistoryChartComponent = () => {
-  const [fromDate, setFromDate] = useState(new Date());
-  const [toDate, setToDate] = useState(new Date());
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(
     "Monthly Consumption"
   );
   const [chartConfig, setChartConfig] = useState({
     labels: [],
     dataset: [],
+  });
+
+  const [date, setDate] = React.useState({
+    from: new Date(2024, 11, 20),
+    to: addDays(new Date(2024, 11, 20), 20),
   });
 
   const processFilteredData = (data, startDate, endDate) => {
@@ -153,16 +157,24 @@ const HistoryChartComponent = () => {
   };
 
   const handleFilterData = () => {
+    setIsLoading(true);
+
     const sourceData =
       selectedCategory === "Prediction" ? jsonPrediction : jsonData;
 
     if (selectedCategory === "Daily Consumption") {
-      const processedData = processFilteredData(sourceData, fromDate, fromDate);
+      const processedData = processFilteredData(
+        sourceData,
+        date.from,
+        date.from
+      );
       setChartConfig(processedData);
     } else {
-      const processedData = processFilteredData(sourceData, fromDate, toDate);
+      const processedData = processFilteredData(sourceData, date.from, date.to);
       setChartConfig(processedData);
     }
+
+    setIsLoading(false);
   };
 
   const chartData = {
@@ -180,7 +192,7 @@ const HistoryChartComponent = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <div className="flex flex-wrap justify-evenly p-4">
+      <div className="flex flex-col flex-wrap items-center justify-evenly p-4">
         <div
           style={{ marginBottom: "20px" }}
           className="flex justify-content items-center gap-5 px-4 py-3 w-fit bg-gray-100 dark:bg-slate-800 rounded-full"
@@ -218,7 +230,7 @@ const HistoryChartComponent = () => {
           </button>
         </div>
         <div className="flex gap-0 h-fit items-center justify-center">
-          <div className="flex flex-wrap gap-0 w-full ">
+          <div className="flex flex-wrap gap-2 items-center justify-center w-full ">
             {/* <DatePicker
               selected={fromDate}
               onChange={(date) => setFromDate(date)}
@@ -233,7 +245,13 @@ const HistoryChartComponent = () => {
                 className="text-black dark:text-white bg-transparent px-4 py-3 border-2 border-gray-300 text-center"
               />
             )} */}
-            <DatePickerWithRange />
+            <DatePickerWithRange date={date} setDate={setDate} />
+            <Button
+              onClick={handleFilterData}
+              className="tracking-wide bg-blue-600 rounded-lg px-4 py-3 text-white"
+            >
+              Filter
+            </Button>
           </div>
           {/* <Button
             onClick={handleFilterData}
@@ -241,7 +259,6 @@ const HistoryChartComponent = () => {
           >
             Filter
           </Button> */}
-
         </div>
       </div>
       <div className="h-1/3 w-1/2 mx-auto bg-gray-300 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 overflow-hidden relative">
@@ -255,14 +272,14 @@ const HistoryChartComponent = () => {
             },
           }}
         />
-        <div className="w-full h-full overflow-hidden absolute top-0 z-20">
+        {/* <div className="w-full h-full overflow-hidden absolute top-0 z-20">
           <Loader
             loading={isLoading}
             loadingStates={loadingStates}
             duration={400}
             loop={false}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

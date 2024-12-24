@@ -6,11 +6,23 @@ import {
   Link,
 } from "@nextui-org/react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Settings } from "lucide-react";
+import { Settings, Zap } from "lucide-react";
 import { TextHoverEffect } from "./ui/text-hover-effect";
 import { ModeToggle } from "./ui/mode_toggle";
+import { useState, useEffect } from "react";
+import { Bell } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Howl } from "howler";
+// import Link from "next/link";
+
+const bellSound = new Howl({
+  src: ["/bell-sound.mp3"],
+});
 
 export default function Topbar() {
+  const [newNotifications, setNewNotifications] = useState(0);
+  const [isRinging, setIsRinging] = useState(false);
+
   const postDataToWebhook = async (userData) => {
     try {
       const response = await fetch("/api/webhook", {
@@ -43,7 +55,18 @@ export default function Topbar() {
       <NavbarBrand>
         <div>{/* LOGO */}</div>
         {/* <p className="font-bold text-inherit text-3xl">Power Forecast</p> */}
-        <TextHoverEffect text="Power Foresight" duration={1} />
+        {/* <TextHoverEffect text="Power Foresight" duration={1} /> */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center space-x-2"
+        >
+          <Zap className="h-8 w-8 text-blue-600" />
+          <span className="text-2xl font-bold text-blue-600">
+            Power Foresight
+          </span>
+        </motion.div>
       </NavbarBrand>
       {/* <div>
         <Ripple />
@@ -59,6 +82,26 @@ export default function Topbar() {
           </SignedIn>
           <Link href="/settings" aria-current="page">
             <Settings />
+          </Link>
+          <Link href="/u/1/notifications" className="relative">
+            <motion.div
+              animate={isRinging ? { rotate: [0, 15, -15, 0] } : {}}
+              transition={{ duration: 0.5, repeat: isRinging ? 2 : 0 }}
+            >
+              <Bell className="text-white h-6 w-6" />
+            </motion.div>
+            <AnimatePresence>
+              {newNotifications > 0 && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >
+                  {newNotifications}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Link>
           <div>
             <ModeToggle />

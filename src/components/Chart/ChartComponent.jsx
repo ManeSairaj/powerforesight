@@ -239,8 +239,11 @@ const ChartComponent = () => {
   };
 
   useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
+    const prediction = jsonPrediction;
+
+    const processedData = processDailyData(prediction);
+    setChartConfig(processedData);
+  }, []);
 
   return (
     <div style={{ padding: "20px" }}>
@@ -255,7 +258,7 @@ const ChartComponent = () => {
       <div className="flex items-center flex-wrap justify-between p-4 ">
         <div
           style={{ marginBottom: "20px" }}
-          className="flex justify-content items-center gap-5 px-4 py-3 w-fit h-fit bg-gray-100 dark:bg-slate-800 rounded-full"
+          className="mx-auto flex justify-content items-center gap-5 px-4 py-3 w-fit h-fit bg-gray-100 dark:bg-slate-800 rounded-full"
         >
           <div className={`px-4 py-2 rounded-full font-bold`}>Prediction</div>
           <button

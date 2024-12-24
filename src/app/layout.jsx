@@ -7,15 +7,15 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body>
+        <body className="overflow-x-hidden">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <div className="flex flex-col w-full">
-              <div className="absolute -left-1/3 top-0 max-w-full">
+            <div className="relative flex flex-col max-w-full">
+              <div className="absolute -left-1/2 -top-0 w-[79vw]">
                 <Meteors number={50} />
               </div>
               <div className="fixed -z-30 top-20 opacity-25 w-screen h-screen justify-center items-center">

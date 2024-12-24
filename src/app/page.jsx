@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ref, set, get } from "firebase/database";
 import { motion, useAnimation } from "framer-motion";
 import {
@@ -13,11 +13,23 @@ import {
 import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import PricingCards from "@/components/ui/PricingCards";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const controls = useAnimation();
   const route = useRouter();
+  const [isBlinking, setIsBlinking] = useState(true);
+
+  // Refs for sections
+  const featuresRef = useRef(null);
+  const howItWorksRef = useRef(null);
+  const pricingRef = useRef(null);
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => setIsBlinking(false), 5000);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +57,20 @@ export default function Home() {
     visible: { transition: { staggerChildren: 0.1 } },
   };
 
+  const scrollToSection = (ref) => {
+    if (ref && ref.current) {
+      // controls.start({
+      //   y: ref.current.offsetTop,
+      //   transition: { duration: 1, ease: "easeInOut" },
+      // });
+
+      window.scrollTo({
+        top: ref.current.offsetTop - 70, // Offset for fixed header
+        behavior: "smooth",
+      });
+    }
+  };
+
   const toDashboard = () => {
     route.push("/u/1");
   };
@@ -58,10 +84,21 @@ export default function Home() {
           transition={{ duration: 0.5 }}
           className="flex items-center space-x-2"
         >
-          <Zap className="h-8 w-8 text-blue-600" />
-          <span className="text-2xl font-bold text-blue-800">
-            Power Foresight
-          </span>
+          <div className="flex items-center">
+            <Zap
+              className={`h-9 w-9 ${
+                isBlinking
+                  ? "animate-blink text-blue-500"
+                  : "text-blue-500 drop-shadow-lg"
+              }`}
+              style={{
+                filter: "drop-shadow(0 0 25px #3b82f6)",
+              }}
+            />
+            <span className="ml-2 text-3xl font-bold rounded-md bg-gradient-to-b from-blue-300 to-blue-800 text-transparent bg-clip-text">
+              Power Foresight
+            </span>
+          </div>
         </motion.div>
         <nav>
           <motion.ul
@@ -70,14 +107,19 @@ export default function Home() {
             variants={stagger}
             className="flex space-x-4 h-fit justify-center items-center"
           >
-            {["Features", "How it Works", "Pricing", "Contact"].map((item) => (
-              <motion.li key={item} variants={fadeInUp}>
-                <a
-                  href="#"
+            {[
+              { name: "Features", ref: featuresRef },
+              { name: "How it Works", ref: howItWorksRef },
+              { name: "Pricing", ref: pricingRef },
+              { name: "Contact", ref: contactRef },
+            ].map((item) => (
+              <motion.li key={item.name} variants={fadeInUp}>
+                <button
+                  onClick={() => scrollToSection(item.ref)}
                   className="text-blue-600 hover:text-blue-800 transition-colors"
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </button>
               </motion.li>
             ))}
             <motion.li className="h-fit flex justify-center items-center space-x-4">
@@ -136,7 +178,7 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="py-20 bg-white">
+        <section ref={featuresRef} className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">
               Key Features
@@ -149,7 +191,7 @@ export default function Home() {
             >
               {[
                 {
-                  icon: <PieChart className="h-12 w-12 text-blue-600" />,
+                  icon: <PieChart className="h-12 w-12 text-blue-900" />,
                   title: "Accurate Predictions",
                   description:
                     "AI-powered forecasts of your energy consumption",
@@ -169,18 +211,23 @@ export default function Home() {
                 <motion.div
                   key={index}
                   variants={fadeInUp}
-                  className="bg-gray-50 p-6 rounded-lg shadow-md text-center"
+                  className="bg-blue-600 p-6 rounded-lg shadow-md text-center hover:shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
+                    className="flex flex-col items-center "
+                    whileHover={{ scale: 1.2 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     {feature.icon}
+                    <h3 className="text-xl font-semibold mt-4 mb-2 text-white">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm">
+                      {feature.description}
+                    </p>
                   </motion.div>
-                  <h3 className="text-xl font-semibold text-blue-800 mt-4 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -188,7 +235,7 @@ export default function Home() {
         </section>
 
         {/* How it Works Section */}
-        <section className="py-20 bg-blue-50">
+        <section ref={howItWorksRef} className="py-20 bg-blue-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">
               How It Works
@@ -247,6 +294,10 @@ export default function Home() {
           </div>
         </section>
 
+        <section ref={pricingRef}>
+          <PricingCards />
+        </section>
+
         {/* Testimonial Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
@@ -272,7 +323,7 @@ export default function Home() {
         </section>
 
         {/* Call to Action Section */}
-        <section className="py-20 bg-blue-600 text-white">
+        <section ref={contactRef} className="py-20 bg-blue-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Start Saving?</h2>
             <p className="text-xl mb-8">
@@ -290,7 +341,7 @@ export default function Home() {
 
       <footer className="bg-blue-900 text-white py-8">
         <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2023 Power Forecast. All rights reserved.</p>
+          <p>&copy; 2024 Power Forecast. All rights reserved.</p>
         </div>
       </footer>
     </div>
